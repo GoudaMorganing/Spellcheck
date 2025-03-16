@@ -300,3 +300,16 @@ a {
   font-size: 13px;
   font-weight: bold;
 }
+
+#stats-table {
+  text-align: center;
+  margin: 0 auto;
+  width: 100%;
+}
+
+#stats-table th,
+#stats-table td {
+  min-width: 30%;
+  max-width: 30%;
+  padding: 8px;
+}
