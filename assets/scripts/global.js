@@ -219,51 +219,41 @@ document.getElementById("keyboard-cont").addEventListener("click", (e) => {
 
   let pressedKey = target.innerText;
   insertLetter(pressedKey);
-  //document.querySelector(`#${pressedKey.toLowerCase()}`).classList.add("clicked")
-  //document.dispatchEvent(new KeyboardEvent("keyup", {'key': key}))
 });
 
 // KEYPRESS TYPING LISTENER
-document.addEventListener("keyup", (e) => {
+document.addEventListener("keydown", (e) => {
   let pressedKey = String(e.key);
   let found = pressedKey.match(/[a-z]/gi);
 
   if (pressedKey === "Enter") {
     document.querySelector(`#${pressedKey}`).classList.add("clicked");
-    setTimeout(() => {
-      setTimeout(
-        document.querySelector(`#${pressedKey}`).classList.remove("clicked")
-      );
-    }, 50);
     guessPreprocess();
     return;
-  }
-
-  if (pressedKey === "Backspace" && attemptStr.length != 0) {
+  } else if (pressedKey === "Backspace" && attemptStr.length != 0) {
     document.querySelector(`#${pressedKey}`).classList.add("clicked");
-    setTimeout(() => {
-      setTimeout(
-        document.querySelector(`#${pressedKey}`).classList.remove("clicked")
-      );
-    }, 50);
     deleteLetter();
     return;
-  }
-
-  if (!found || found.length > 1) {
-    return;
-  } else {
+  } else if (found && found.length === 1) {
     insertLetter(pressedKey);
     document
       .querySelector(`#${pressedKey.toLowerCase()}`)
       .classList.add("clicked");
-    setTimeout(() => {
-      setTimeout(
-        document
-          .querySelector(`#${pressedKey.toLowerCase()}`)
-          .classList.remove("clicked")
-      );
-    }, 50);
     return;
+  }
+});
+
+document.addEventListener("keyup", (e) => {
+  let pressedKey = String(e.key);
+  let found = pressedKey.match(/[a-z]/gi);
+
+  if (pressedKey === "Enter" || pressedKey === "Backspace") {
+    document.querySelector(`#${pressedKey}`).classList.remove("clicked");
+  }
+
+  if (found && found.length === 1) {
+    document
+      .querySelector(`#${pressedKey.toLowerCase()}`)
+      .classList.remove("clicked");
   }
 });
