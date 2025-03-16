@@ -4932,17 +4932,17 @@ function cyrb128(str) {
     h2 = 3144134277,
     h3 = 1013904242,
     h4 = 2773480762;
-    for (let i = 0, k; i < str.length; i++) {
-        k = str.charCodeAt(i);
-        h1 = h2 ^ Math.imul(h1 ^ k, 597399067);
-        h2 = h3 ^ Math.imul(h2 ^ k, 2869860233);
-        h3 = h4 ^ Math.imul(h3 ^ k, 951274213);
-        h4 = h1 ^ Math.imul(h4 ^ k, 2716044179);
-    }
-    h1 = Math.imul(h3 ^ (h1 >>> 18), 597399067);
-    h2 = Math.imul(h4 ^ (h2 >>> 22), 2869860233);
-    h3 = Math.imul(h1 ^ (h3 >>> 17), 951274213);
-    h4 = Math.imul(h2 ^ (h4 >>> 19), 2716044179);
+  for (let i = 0, k; i < str.length; i++) {
+    k = str.charCodeAt(i);
+    h1 = h2 ^ Math.imul(h1 ^ k, 597399067);
+    h2 = h3 ^ Math.imul(h2 ^ k, 2869860233);
+    h3 = h4 ^ Math.imul(h3 ^ k, 951274213);
+    h4 = h1 ^ Math.imul(h4 ^ k, 2716044179);
+  }
+  h1 = Math.imul(h3 ^ (h1 >>> 18), 597399067);
+  h2 = Math.imul(h4 ^ (h2 >>> 22), 2869860233);
+  h3 = Math.imul(h1 ^ (h3 >>> 17), 951274213);
+  h4 = Math.imul(h2 ^ (h4 >>> 19), 2716044179);
   (h1 ^= h2 ^ h3 ^ h4), (h2 ^= h1), (h3 ^= h1), (h4 ^= h1);
   return [h1 >>> 0, h2 >>> 0, h3 >>> 0, h4 >>> 0];
 }
@@ -4959,101 +4959,128 @@ function sfc32(a, b, c, d) {
     b = (c + (c << 3)) | 0;
     c = (c << 21) | (c >>> 11);
     c = (c + t) | 0;
-      return (t >>> 0) / 4294967296;
+    return (t >>> 0) / 4294967296;
   };
 }
 
+let selectedPastLevel;
+let today;
+
+if (sessionStorage.getItem("selectedPastLevel")) {
+  console.log("test past");
+  selectedPastLevel = parseInt(sessionStorage.getItem("selectedPastLevel"));
+  today = new Date("1/12/2024");
+  console.log(selectedPastLevel);
+  today.setDate(today.getDate() + selectedPastLevel);
+  today = today.toLocaleString("en-US", {
+    timeZone: "America/New_York",
+  });
+  today = today.split(",")[0];
+} else {
+  today = new Date().toLocaleString("en-US", {
+    timeZone: "America/New_York",
+  });
+  today = today.split(",")[0];
+}
+
+sessionStorage.removeItem("selectedPastLevel");
+
+console.log(`Reference Date: ${today}`);
 // Create cyrb128 state:
-var today = new Date().toLocaleString("en-US", {timeZone: "America/New_York"});
-today = today.split(',')[0];
-console.log(`Reference Date: ${today}`)
 var seed = cyrb128(today);
 
 // Four 32-bit component hashes provide the seed for sfc32.
 var rand = sfc32(seed[0], seed[1], seed[2], seed[3]);
 
+const PAST_PUZZLES = document.querySelector("#past-puzzles");
+
+let pastResults;
+if (sessionStorage.getItem("pastResults")) {
+  pastResults = sessionStorage.getItem("pastResults");
+}
+
+var diffTime = new Date(today).getTime() - new Date("1/12/2024").getTime();
+var Difference_In_Days = Math.round(diffTime / (1000 * 3600 * 24));
+var puzzleNum = Difference_In_Days;
+sessionStorage.setItem("puzzleNum", puzzleNum);
+
 function chooseWords(wordLst) {
-    result = [];
-    while (result.length < 5) {
+  result = [];
+  while (result.length < 5) {
     var item = wordLst[Math.floor(rand() * wordLst.length)];
     if (!result.includes(item)) {
       result.push(item);
-        }
     }
-    return result;
+  }
+  return result;
 }
 
 function shuffle(array) {
   let currentIndex = array.length,
     randomIndex;
-  
-    // While there remain elements to shuffle.
-    while (currentIndex > 0) {
-      // Pick a remaining element.
-      randomIndex = Math.floor(Math.random() * currentIndex);
-      currentIndex--;
-  
-      // And swap it with the current element.
-      [array[currentIndex], array[randomIndex]] = [
+
+  // While there remain elements to shuffle.
+  while (currentIndex > 0) {
+    // Pick a remaining element.
+    randomIndex = Math.floor(Math.random() * currentIndex);
+    currentIndex--;
+
+    // And swap it with the current element.
+    [array[currentIndex], array[randomIndex]] = [
       array[randomIndex],
       array[currentIndex],
     ];
-    }
-  
-    return array;
+  }
+
+  return array;
 }
 
 function genYoutubeWordLst() {
-    result = [];
-    var YTseed = cyrb128("content");
-    // Four 32-bit component hashes provide the seed for sfc32.
-    var YTrand = sfc32(YTseed[0], YTseed[1], YTseed[2], YTseed[3]);
+  result = [];
+  var YTseed = cyrb128("content");
+  // Four 32-bit component hashes provide the seed for sfc32.
+  var YTrand = sfc32(YTseed[0], YTseed[1], YTseed[2], YTseed[3]);
 
   wordLst = easyWords;
 
-    while (result.length < 10) {
+  while (result.length < 10) {
     var item = wordLst[Math.floor(YTrand() * wordLst.length)];
     if (!result.includes(item)) {
       result.push(item);
-        }
     }
+  }
 
   wordLst = mediumWords;
-    while (result.length < 20 && result.length >= 10) {
+  while (result.length < 20 && result.length >= 10) {
     var item = wordLst[Math.floor(YTrand() * wordLst.length)];
     if (!result.includes(item)) {
       result.push(item);
-        }
     }
+  }
   wordLst = hardWords;
-    while (result.length < 100 && result.length >= 20) {
+  while (result.length < 100 && result.length >= 20) {
     var item = wordLst[Math.floor(YTrand() * wordLst.length)];
     if (!result.includes(item)) {
       result.push(item);
-        }
     }
+  }
 
-    return result;
+  return result;
 }
 
 function genSpellOffWordLst() {
-    result = [];
-    var YTseed = cyrb128("phil");
-    // Four 32-bit component hashes provide the seed for sfc32.
-    var YTrand = sfc32(YTseed[0], YTseed[1], YTseed[2], YTseed[3]);
+  result = [];
+  var YTseed = cyrb128("phil");
+  // Four 32-bit component hashes provide the seed for sfc32.
+  var YTrand = sfc32(YTseed[0], YTseed[1], YTseed[2], YTseed[3]);
 
   wordLst = hardWords;
-    while (result.length < 25) {
+  while (result.length < 25) {
     var item = wordLst[Math.floor(YTrand() * wordLst.length)];
     if (!result.includes(item)) {
       result.push(item);
-        }
     }
+  }
 
-    return result;
+  return result;
 }
-
-var diffTime = new Date(today).getTime() - new Date("1/12/2024").getTime();
-var Difference_In_Days = Math.round(diffTime / (1000 * 3600 * 24));
-var puzzleNum = Difference_In_Days
-sessionStorage.setItem("puzzleNum", puzzleNum)

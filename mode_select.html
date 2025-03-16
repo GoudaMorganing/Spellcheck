@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
+  <head>
     <meta charset="UTF-8" />
     <meta
       name="viewport"
@@ -22,55 +22,72 @@
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.3.0/css/all.min.css"
     />
     <link rel="icon" type="image/x-icon" href="assets/icons/spellcheck.png" />
-</head>
-<body>
+  </head>
+  <body>
     <div class="header">
-        <div id="header-with-menu">
+      <div id="header-with-menu">
         <a href="index.html" class="boxed btn" id="header-menu"
           ><i class="fa fa-arrow-left" style="font-size: 30pt; padding: 0%"></i
         ></a>
-            <div></div>
+        <div></div>
         <h1 class="boxed" id="header-title">
           <span class="">Spellcheck</span>
         </h1>
-        </div>
+      </div>
     </div>
 
     <div class="content">
-        <p><i>select game mode</i></p>
+      <p><i>select game mode</i></p>
 
-        <h2 class="boxed-black"><span class="error">dayly</span> challenge</h2>
-        <p>Expand your <span class="error">vocabulry</span> and spell these words that refresh daily.</p>
-        <a href="solo_game.html" >
-            <div class="btn boxed">
-                play the daily &ensp;<i class="fa-solid fa-calendar" style="font-size:10pt;"></i>
-            </div>
-        </a>
+      <h2 class="boxed-black"><span class="error">dayly</span> challenge</h2>
+      <p>
+        Expand your <span class="error">vocabulry</span> and spell these words
+        that refresh daily.
+      </p>
+      <a href="solo_game.html">
+        <div class="btn boxed">
+          play the daily &ensp;<i
+            class="fa-solid fa-calendar"
+            style="font-size: 10pt"
+          ></i>
+        </div>
+      </a>
 
-        <h2 class="boxed-black">practice mode</h2>
+      <h2 class="boxed-black">past <span class="error">gaems</span></h2>
+      <p>Play puzzles from previous <span class="error">daes</span></p>
+      <a href="previous_days.html">
+        <div class="btn boxed">
+          select day &ensp;<i
+            class="fa-solid fa-clock"
+            style="font-size: 10pt"
+          ></i>
+        </div>
+      </a>
+
+      <h2 class="boxed-black">practice mode</h2>
       <p>
         Set a difficulty level and see how many words you can spell
         <span class="error">bfore</span> running out of lives.
       </p>
-        <p><i>set word difficulty</i></p>
-            <div class="switch-field">
+      <p><i>set word difficulty</i></p>
+      <div class="switch-field">
         <input type="radio" name="difficulty-switch" id="easy" />
-                <label>easy</label>
+        <label>easy</label>
         <input type="radio" name="difficulty-switch" id="medium" checked />
-                <label>medium</label>
+        <label>medium</label>
         <input type="radio" name="difficulty-switch" id="hard" />
-                <label>hard</label>
-            </div>
+        <label>hard</label>
+      </div>
       <br />
-        
+
       <a href="practice_game.html">
-            <div class="btn boxed">
+        <div class="btn boxed">
           practice &ensp;<i
             class="fa-solid fa-dumbbell"
             style="font-size: 10pt"
           ></i>
-            </div>
-        </a>
+        </div>
+      </a>
     </div>
 
     <br />
@@ -88,19 +105,19 @@
             >answer in progress</a
           >
         </p>
-        </div>
-    </div>    
-</body>
-<script>
+      </div>
+    </div>
+  </body>
+  <script>
     // record the practice level setting
     const radios = document.querySelectorAll('input[name="difficulty-switch"]');
     sessionStorage.setItem("level", "medium");
     radios.forEach((radio) => {
       radio.addEventListener("click", function () {
-            radioVal = radio.id;
-            sessionStorage.setItem("level", radioVal);
+        radioVal = radio.id;
+        sessionStorage.setItem("level", radioVal);
         console.log(radioVal);
-        });
+      });
     });
-</script>
+  </script>
 </html>
