@@ -4967,20 +4967,24 @@ let selectedPastLevel;
 let today;
 
 if (sessionStorage.getItem("selectedPastLevel")) {
-  console.log("test past");
   selectedPastLevel = parseInt(sessionStorage.getItem("selectedPastLevel"));
   today = new Date("1/12/2024");
-  console.log(selectedPastLevel);
   today.setDate(today.getDate() + selectedPastLevel);
   today = today.toLocaleString("en-US", {
     timeZone: "America/New_York",
   });
   today = today.split(",")[0];
+  sessionStorage.setItem("puzzleNum", selectedPastLevel);
 } else {
   today = new Date().toLocaleString("en-US", {
     timeZone: "America/New_York",
   });
   today = today.split(",")[0];
+
+  var diffTime = new Date(today).getTime() - new Date("1/12/2024").getTime();
+  var Difference_In_Days = Math.round(diffTime / (1000 * 3600 * 24));
+  var puzzleNum = Difference_In_Days;
+  sessionStorage.setItem("puzzleNum", puzzleNum);
 }
 
 sessionStorage.removeItem("selectedPastLevel");
@@ -4998,11 +5002,6 @@ let pastResults;
 if (sessionStorage.getItem("pastResults")) {
   pastResults = sessionStorage.getItem("pastResults");
 }
-
-var diffTime = new Date(today).getTime() - new Date("1/12/2024").getTime();
-var Difference_In_Days = Math.round(diffTime / (1000 * 3600 * 24));
-var puzzleNum = Difference_In_Days;
-sessionStorage.setItem("puzzleNum", puzzleNum);
 
 function chooseWords(wordLst) {
   result = [];
