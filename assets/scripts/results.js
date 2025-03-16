@@ -100,8 +100,6 @@ if (localStorage.getItem("alltimeResults")) {
     (el) => el.puzzle === puzzleNum
   );
 
-  console.log(historyCheck);
-
   if (!historyCheck) {
     alltimeResults.history.push(newValue);
     alltimeResults.totalScoreEasy =
