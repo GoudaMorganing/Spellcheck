@@ -1,31 +1,42 @@
-/* https://www.freecodecamp.org/news/build-a-wordle-clone-in-javascript/ */
 const KEYBOARD_EL = document.querySelector("#keyboard");
 const attempt = document.querySelector("#attempt-box");
-var level = sessionStorage.getItem("level");
-var publicCount = document.querySelector("#count");
 
 var wordOne = document.querySelector("#word-one");
+var wordTwo = document.querySelector("#word-two");
+var wordThree = document.querySelector("#word-three");
+var wordFour = document.querySelector("#word-four");
+var wordFive = document.querySelector("#word-five");
+
 var wordOnePlayer = document.querySelector("#word-one-player");
+var wordTwoPlayer = document.querySelector("#word-two-player");
+var wordThreePlayer = document.querySelector("#word-three-player");
+var wordFourPlayer = document.querySelector("#word-four-player");
+var wordFivePlayer = document.querySelector("#word-five-player");
 
-var lastActiveWord = null;
+var wordOneSubmission = "";
+var wordTwoSubmission = "";
+var wordThreeSubmission = "";
+var wordFourSubmission = "";
+var wordFiveSubmission = "";
 
-var wordCounter = 0;
-var attemptStr = "";
-var activeWord = null;
-var activePlayer = null;
-var wordLst;
-var levelPath;
+var wordOneSpelling = "";
+var wordTwoSpelling = "";
+var wordThreeSpelling = "";
+var wordFourSpelling = "";
+var wordFiveSpelling = "";
 
-var results = "";
-var submissionLst = [];
-var correctSpellingLst = [];
-var wrongSubmission = "";
-var playerLst = [[wordOne, wordOnePlayer]];
+var playerLst = [
+  [wordOne, wordOnePlayer, wordOneSpelling, wordOneSubmission],
+  [wordTwo, wordTwoPlayer, wordTwoSpelling, wordTwoSubmission],
+  [wordThree, wordThreePlayer, wordThreeSpelling, wordThreeSubmission],
+  [wordFour, wordFourPlayer, wordFourSpelling, wordFourSubmission],
+  [wordFive, wordFivePlayer, wordFiveSpelling, wordFiveSubmission],
+];
 
 KEYBOARD_EL.innerHTML = `<div id="keyboard-cont">
     <div class="first-row">
         <button class="keyboard-button boxed" id="q">Q</button>
-        <button class="keyboard-button boxed" id="q">W</button>
+        <button class="keyboard-button boxed" id="w">W</button>
         <button class="keyboard-button boxed" id="e">E</button>
         <button class="keyboard-button boxed" id="r">R</button>
         <button class="keyboard-button boxed" id="t">T</button>
@@ -56,7 +67,7 @@ KEYBOARD_EL.innerHTML = `<div id="keyboard-cont">
         <button class="keyboard-button boxed" id="m">M</button>
         <button class="keyboard-button boxed fa fa-delete-left" style="line-height:1.5" id="Backspace"></button>
     </div>
-    <div class="fourthsrow">
+    <div class="fourth-row">
         <button class="keyboard-button boxed" id="Enter">submit</button>
     </div>
 </div>`;
@@ -65,33 +76,33 @@ KEYBOARD_EL.innerHTML = `<div id="keyboard-cont">
 function checkLevel(level) {
   resetPlayer(playerLst);
   attempt.value = attemptStr;
-  updateWord();
-}
-
-function updateWord() {
-  if (wordCounter < 10) {
+  if (level === "Level One: Easy") {
+    assignSound("levelOneNEW", chooseWords(easyWords));
+    dictValue = "levelOne";
+  } else if (level === "Level Two: Medium") {
+    assignSound("levelTwoNEW", chooseWords(mediumWords));
+    dictValue = "levelTwo";
+  } else if (level === "Level Three: Hard") {
+    assignSound("levelThreeNEW", chooseWords(hardWords));
+    dictValue = "levelThree";
+  } else if (level === "easy") {
+    wordLst = shuffle(easyWords);
     levelPath = "levelOneNEW";
-  } else if (wordCounter >= 10 && wordCounter < 20) {
+    path = `assets/audio/${levelPath}`;
+    updateWord();
+  } else if (level === "medium") {
+    wordLst = shuffle(mediumWords);
     levelPath = "levelTwoNEW";
-  } else if (wordCounter >= 20 && wordCounter < 100) {
+    path = `assets/audio/${levelPath}`;
+    updateWord();
+  } else if (level === "hard") {
+    wordLst = shuffle(hardWords);
     levelPath = "levelThreeNEW";
+    path = `assets/audio/${levelPath}`;
+    updateWord();
+  } else {
+    window.location.replace("ahshit.html");
   }
-  wordLst = genYoutubeWordLst();
-  path = `assets/audio/${levelPath}`;
-  resetPlayer(playerLst);
-  activeWord = wordLst[wordCounter];
-  wordOnePlayer.src = `${path}/${wordLst[wordCounter]}.mp3`;
-  //console.log(`levelPath: ${levelPath}\nWord Counter: ${wordCounter}.\nActive Word: ${activeWord}`)
-
-  publicCount.textContent = `Words Spelled: ${wordCounter}`;
-}
-
-function endGame() {
-  sessionStorage.setItem("submissionLst", submissionLst);
-  sessionStorage.setItem("correctSpellingLst", correctSpellingLst);
-  sessionStorage.setItem("level", level);
-
-  window.location.replace("practice_results.html");
 }
 
 // STOP PLAYING SOUND
@@ -117,6 +128,8 @@ function deleteLetter() {
   attempt.value = attemptStr;
 }
 
+// CHECK IF GUESS IS CORRECT
+
 function guessPreprocess() {
   if (lastActiveWord != null && activeWord == null) {
     activeWord = lastActiveWord;
@@ -133,33 +146,6 @@ function guessPreprocess() {
   } else {
     checkGuess();
   }
-}
-
-// CHECK IF GUESS IS CORRECT
-function checkGuess() {
-  correctSpellingLst.push(`<td>${activeWord}</td>`);
-  if (attemptStr.toLowerCase() == activeWord.toLowerCase()) {
-    submissionLst.push(`<td>${attemptStr}</td>`);
-    wordCounter += 1;
-
-    stopSound(activePlayer[1]);
-
-    updatePlayer(playerLst, activePlayer);
-
-    // DEACTIVATE WORD
-    activeWord = null;
-    activePlayer = null;
-
-    // RECURSIVE CALL FOR NEW WORD
-    updateWord();
-  } else {
-    submissionLst.push(`<td class="error">${attemptStr}</td>`);
-    endGame();
-  }
-
-  attemptStr = "";
-  attempt.value = attemptStr;
-  return;
 }
 
 // update players to reflect their current status
@@ -208,12 +194,6 @@ function resetPlayer(playerLst) {
     player[0].classList.add("fa-play-circle");
   });
 }
-// PROMPT MANAGEMENT
-
-wordOne.addEventListener("click", (e) => {
-  activePlayer = [wordOne, wordOnePlayer];
-  updatePlayer(playerLst, activePlayer);
-});
 
 // LINK ONSCREEN KEYBOARD FUNCTIONALITY TO KEYPRESSS
 document.getElementById("keyboard-cont").addEventListener("click", (e) => {
@@ -238,24 +218,8 @@ document.getElementById("keyboard-cont").addEventListener("click", (e) => {
   }
 
   let pressedKey = target.innerText;
-  let found = pressedKey.match(/[a-z]/gi);
-
-  if (!found || found.length > 1) {
-    return;
-  } else {
-    insertLetter(pressedKey);
-    document
-      .querySelector(`#${pressedKey.toLowerCase()}`)
-      .classList.add("clicked");
-    setTimeout(() => {
-      setTimeout(
-        document
-          .querySelector(`#${pressedKey.toLowerCase()}`)
-          .classList.remove("clicked")
-      );
-    }, 50);
-    return;
-  }
+  insertLetter(pressedKey);
+  //document.querySelector(`#${pressedKey.toLowerCase()}`).classList.add("clicked")
   //document.dispatchEvent(new KeyboardEvent("keyup", {'key': key}))
 });
 
@@ -303,5 +267,3 @@ document.addEventListener("keyup", (e) => {
     return;
   }
 });
-
-checkLevel("youtube");
