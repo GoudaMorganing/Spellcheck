@@ -58,11 +58,11 @@ typos.innerHTML = test;
 emojiResults = emojiResults.replaceAll("\\n", "<br>");
 results.innerHTML = `${emojiResults}`;
 
-let emojiMsg = `🟩 🟩 🟩 🟩 🟩 \n🟩 🟩 🟩 🟩 🟩 \n🟥 🟥 🟥 🟩 🟥 \n`;
 let chunkSize = 5;
 
+let emojiMsg = emojiResults;
 emojiMsg = emojiMsg.replaceAll(" ", "");
-let emojiSplit = emojiMsg.split("\n");
+let emojiSplit = emojiMsg.split("<br>");
 emojiSplit.pop();
 
 let easy = 0;
