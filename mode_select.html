@@ -1,22 +1,38 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0 maximum-scale=1.0, user-scalable=0">
+    <meta charset="UTF-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0 maximum-scale=1.0, user-scalable=0"
+    />
     <title>Spellcheck - A Word Game | Select Mode</title>
-    <link rel="stylesheet" href="assets/styles/large_style.css" media="(min-width: 800px)">
-    <link rel="stylesheet" href="assets/styles/mobile_style.css" media="(max-width: 800px)">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.3.0/css/all.min.css">
-    <link rel="icon" type="image/x-icon" href="assets/icons/spellcheck.png">
-
+    <link
+      rel="stylesheet"
+      href="assets/styles/large_style.css"
+      media="(min-width: 800px)"
+    />
+    <link
+      rel="stylesheet"
+      href="assets/styles/mobile_style.css"
+      media="(max-width: 800px)"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.3.0/css/all.min.css"
+    />
+    <link rel="icon" type="image/x-icon" href="assets/icons/spellcheck.png" />
 </head>
 <body>
-    
     <div class="header">
         <div id="header-with-menu">
-            <a href="index.html" class="boxed btn" id="header-menu"><i class="fa fa-arrow-left" style="font-size:30pt; padding:0%"></i></a>
+        <a href="index.html" class="boxed btn" id="header-menu"
+          ><i class="fa fa-arrow-left" style="font-size: 30pt; padding: 0%"></i
+        ></a>
             <div></div>
-            <h1 class="boxed" id="header-title"><span class="">Spellcheck</span></h1>
+        <h1 class="boxed" id="header-title">
+          <span class="">Spellcheck</span>
+        </h1>
         </div>
     </div>
 
@@ -32,45 +48,52 @@
         </a>
 
         <h2 class="boxed-black">practice mode</h2>
-        <p>Set a difficulty level and see how many words you can spell <span class="error">bfore</span> running out of lives.</p>
+      <p>
+        Set a difficulty level and see how many words you can spell
+        <span class="error">bfore</span> running out of lives.
+      </p>
         <p><i>set word difficulty</i></p>
             <div class="switch-field">
-                <input type="radio" name="difficulty-switch" id="easy"/>
+        <input type="radio" name="difficulty-switch" id="easy" />
                 <label>easy</label>
-                <input type="radio" name="difficulty-switch" id="medium"checked/>
+        <input type="radio" name="difficulty-switch" id="medium" checked />
                 <label>medium</label>
-                <input type="radio" name="difficulty-switch"id="hard"/>
+        <input type="radio" name="difficulty-switch" id="hard" />
                 <label>hard</label>
             </div>
-            <br>
+      <br />
         
-        <a href="practice_game.html" >
+      <a href="practice_game.html">
             <div class="btn boxed">
-                practice &ensp;<i class="fa-solid fa-dumbbell" style="font-size:10pt;"></i>
+          practice &ensp;<i
+            class="fa-solid fa-dumbbell"
+            style="font-size: 10pt"
+          ></i>
             </div>
         </a>
     </div>
 
-    <br>
+    <br />
     <div class="footer">
-        <div><p>an answer in progress <span class="error">prject</span></p></div>
-        <div id="social-icons-flexbox">
-            <a href="https://www.youtube.com/answerinprogress" target="_blank" class="social-icon"><i class="fa-brands fa-youtube"></i></a>
-            <a href="https://www.instagram.com/answerinprogress" target="_blank" class="social-icon"><i class="fa-brands fa-instagram"></i></a>
-            <a href="https://www.patreon.com/answerinprogress" target="_blank" class="social-icon"><i class="fa-brands fa-patreon"></i></a>
-            <a href="https://answerinprogress.substack.com/" target="_black" class="social-icon"><i class="fa-regular fa-envelope"></i></a>
+      <div>
+        <p>
+          based off the <span class="error">prject</span> by
+          <a href="https://www.youtube.com/answerinprogress"
+            >answer in progress</a
+          >
+        </p>
         </div>
     </div>    
 </body>
 <script>
     // record the practice level setting
     const radios = document.querySelectorAll('input[name="difficulty-switch"]');
-    sessionStorage.setItem("level", 'medium');
-    radios.forEach(radio => {
-        radio.addEventListener('click', function () {
+    sessionStorage.setItem("level", "medium");
+    radios.forEach((radio) => {
+      radio.addEventListener("click", function () {
             radioVal = radio.id;
             sessionStorage.setItem("level", radioVal);
-            console.log(radioVal)
+        console.log(radioVal);
         });
     });
 </script>
