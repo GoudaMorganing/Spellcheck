@@ -42,7 +42,7 @@ p {
   flex-direction: row;
   justify-content: center;
   align-items: center;
-  column-gap: 15px;
+  gap: 16px;
 }
 
 #header-title {
@@ -291,8 +291,11 @@ a {
 }
 
 .past-played-btn {
-  color: #ebebeb;
-  background-color: #777777;
+  border: 1px black solid;
+  padding: 10px;
+  border-radius: 5px;
+  color: #333333;
+  background-color: #ebebeb;
   width: 50px;
   padding: 16px;
   margin-left: auto;

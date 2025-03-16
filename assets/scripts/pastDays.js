@@ -21,7 +21,7 @@ for (let i = 1; i < puzzleNum; i++) {
 
     if (historyCheck) {
       outerNode.innerHTML = `
-          <div class="past-played-btn boxed" id="puzzle-${i}">
+          <div class="past-played-btn" id="puzzle-${i}">
           <i class="fa-solid fa-check"></i>
           </div>`;
     } else {
