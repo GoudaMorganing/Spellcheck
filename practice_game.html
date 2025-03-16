@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
+  <head>
     <meta charset="UTF-8" />
     <meta
       name="viewport"
@@ -27,52 +27,59 @@
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.3.0/css/all.min.css"
     />
     <link rel="icon" type="image/x-icon" href="assets/icons/spellcheck.png" />
-</head>
-<body>
+  </head>
+  <body>
     <div class="header">
-        <div id="header-with-menu">
+      <div id="header-with-menu">
         <a href="mode_select.html" class="boxed btn" id="header-menu"
           ><i class="fa fa-arrow-left" style="font-size: 30pt; padding: 0%"></i
         ></a>
-            <div></div>
+        <div></div>
         <h1 class="boxed" id="header-title">
           <span class="">Spellcheck</span>
         </h1>
-        </div>
+      </div>
     </div>
     <div class="content">
-        <div id="top-banner" class="score-banner">
-            <i class="" id="correct-count"></i>
-            <i class="" id="total-count"></i>
-        </div>
-        <div id="practice-prompt">
+      <div id="top-banner" class="score-banner">
+        <i class="" id="correct-count"></i>
+        <i class="" id="total-count"></i>
+      </div>
+      <div id="practice-prompt">
         <div
           id="word-one"
           class="prompt boxed btn fa fa-play-circle"
           style="font-size: 24pt"
         >
-                <audio id="word-one-player" src="" loop></audio>
-            </div>
+          <audio id="word-one-player" src="" loop></audio>
+        </div>
         <input
           id="attempt-box"
           type="text"
           placeholder="start typing..."
           readonly
         />
-        </div>
-        <div id="keyboard"></div>
+      </div>
+      <div id="keyboard"></div>
     </div>
 
     <div class="footer">
-        <div><p>an answer in progress <span class="error">prject</span></p></div>
-        <div id="social-icons-flexbox">
-            <a href="https://www.youtube.com/answerinprogress" target="_blank" class="social-icon"><i class="fa-brands fa-youtube"></i></a>
-            <a href="https://www.instagram.com/answerinprogress" target="_blank" class="social-icon"><i class="fa-brands fa-instagram"></i></a>
-            <a href="https://www.patreon.com/answerinprogress" target="_blank" class="social-icon"><i class="fa-brands fa-patreon"></i></a>
-            <a href="https://answerinprogress.substack.com/" target="_black" class="social-icon"><i class="fa-regular fa-envelope"></i></a>
-        </div>
-    </div> 
-</body>
-<script src="assets/scripts/wordLstGenerator.js"></script>
-<script src="assets/scripts/practice.js"></script> 
+      <div>
+        <p>
+          based off the
+          <span class="error"
+            ><a href="https://github.com/sabrina-aip/spellcheck"
+              >prject</a
+            ></span
+          >
+          by
+          <a href="https://www.youtube.com/answerinprogress"
+            >answer in progress</a
+          >
+        </p>
+      </div>
+    </div>
+  </body>
+  <script src="assets/scripts/wordLstGenerator.js"></script>
+  <script src="assets/scripts/practice.js"></script>
 </html>
