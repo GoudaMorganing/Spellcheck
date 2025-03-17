@@ -14,7 +14,7 @@ copyBtn.addEventListener("click", async (e) => {
   shareableResults = `Spellcheck #${puzzleNum}\n${sessionStorage
     .getItem("emojiResults")
     .replaceAll("\\n", "\n")
-    .replaceAll(" ", "")}`;
+    .replaceAll(" ", "")}\nhttps://www.spellcheck.ing/`;
   await navigator.clipboard.writeText(shareableResults);
 });
 
