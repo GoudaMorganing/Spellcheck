@@ -13,6 +13,10 @@ if (localStorage.getItem("alltimeResults")) {
     .createDocumentFragment()
     .appendChild(document.createElement("tbody"));
 
+  alltimeResults.history = alltimeResults.history.sort(
+    (a, b) => parseInt(b.puzzle) - parseInt(a.puzzle)
+  );
+
   for (let i = 0; i < dataRows; i++) {
     let row = fragment.appendChild(document.createElement("tr"));
 
