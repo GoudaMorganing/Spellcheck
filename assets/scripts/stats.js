@@ -37,8 +37,6 @@ if (localStorage.getItem("alltimeResults")) {
     );
     let arr = emojiText.split(" \\n");
     arr.pop();
-    console.log(alltimeResults.history[i].emojiResults);
-    console.log(arr);
 
     let colNum = row.appendChild(document.createElement("td"));
     let colEasy = row.appendChild(document.createElement("td"));
