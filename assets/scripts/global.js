@@ -153,7 +153,7 @@ function updatePlayer(playerLst, activePlayer) {
   if (activePlayer[0].classList.contains("clicked")) {
     stopSound(activePlayer[1]);
     activePlayer[0].classList.remove("clicked", "fa-circle-stop");
-    activePlayer[0].classList.add("fa-play-circle");
+    activePlayer[0].classList.add("fa-circle-play");
 
     lastActiveWord = activeWord;
 
@@ -191,7 +191,7 @@ function resetPlayer(playerLst) {
       "fa-circle-stop",
       "submitted"
     );
-    player[0].classList.add("fa-play-circle");
+    player[0].classList.add("fa-circle-play");
   });
 }
 

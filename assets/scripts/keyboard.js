@@ -82,7 +82,7 @@ function checkGuess() {
     activePlayer[0].classList.add("submitted", "fa-check");
     activePlayer[0].classList.remove(
       "clicked",
-      "fa-play-circle",
+      "fa-circle-play",
       "fa-circle-stop",
       "btn"
     );
@@ -101,7 +101,7 @@ function checkGuess() {
     activePlayer[0].classList.remove(
       "clicked",
       "fa-circle-stop",
-      "fa-play-circle",
+      "fa-circle-play",
       "btn"
     );
 
