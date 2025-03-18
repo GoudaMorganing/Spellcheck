@@ -313,3 +313,7 @@ a {
   max-width: 30%;
   padding: 8px;
 }
+
+#next-round-btn {
+  margin-bottom: 32px;
+}
