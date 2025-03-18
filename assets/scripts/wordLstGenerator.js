@@ -4970,14 +4970,12 @@ if (sessionStorage.getItem("selectedPastLevel")) {
   selectedPastLevel = parseInt(sessionStorage.getItem("selectedPastLevel"));
   today = new Date("1/12/2024");
   today.setDate(today.getDate() + selectedPastLevel);
-  today = today.toLocaleString("en-US", {
-    timeZone: "America/New_York",
-  });
+  today = today.toLocaleString();
   today = today.split(",")[0];
   sessionStorage.setItem("puzzleNum", selectedPastLevel);
 } else {
   today = new Date().toLocaleString("en-US", {
-    timeZone: "America/New_York",
+    timeZone: "UTC",
   });
   today = today.split(",")[0];
 
