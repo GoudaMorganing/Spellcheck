@@ -1,4 +1,6 @@
-var today = new Date().toLocaleString();
+var today = new Date().toLocaleString("en-US", {
+  timeZone: "UTC",
+});
 today = today.split(",")[0];
 
 const PAST_PUZZLES = document.querySelector("#past-puzzles");
